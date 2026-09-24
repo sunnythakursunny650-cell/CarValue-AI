@@ -10,28 +10,67 @@ st.set_page_config(
     page_title="CarValue AI — Smart Vehicle Valuation Engine",
     page_icon="🚗",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
-# Sidebar: Theme & Share Controls
-with st.sidebar:
-    st.markdown("### ⚙️ Dashboard Preferences")
-    theme_choice = st.radio("Display Theme", ["Dark Mode 🌙", "Light Mode ☀️"], index=0)
-    st.markdown("---")
-    st.markdown("### 📤 Share Platform")
-    current_url = "https://carvalue-ai.streamlit.app"
-    
-    st.text_input("Direct Application Link", value=current_url, disabled=True)
-    
-    c_s1, c_s2 = st.columns(2)
-    with c_s1:
-        whatsapp_share = f"https://api.whatsapp.com/send?text=Check%20out%20CarValue-AI%20Used%20Car%20Price%20Predictor:%20{current_url}"
-        st.markdown(f'<a href="{whatsapp_share}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:8px; border-radius:8px; border:none; background:#25D366; color:white; font-weight:600; cursor:pointer;">WhatsApp</button></a>', unsafe_allow_html=True)
-    with c_s2:
-        linkedin_share = f"https://www.linkedin.com/sharing/share-offsite/?url={current_url}"
-        st.markdown(f'<a href="{linkedin_share}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:8px; border-radius:8px; border:none; background:#0077b5; color:white; font-weight:600; cursor:pointer;">LinkedIn</button></a>', unsafe_allow_html=True)
+# Load Artifacts
+@st.cache_resource
+def load_artifacts():
+    pipeline = joblib.load("artifacts/car_price_pipeline.pkl")
+    with open("artifacts/car_meta.json", "r") as f:
+        meta = json.load(f)
+    return pipeline, meta
 
-# Dynamic Styling based on Theme Choice
+pipeline, meta = load_artifacts()
+
+# Reliable Vector Badges
+BRAND_LOGOS = {
+    "Acura": "https://raw.githubusercontent.com/fannarsh/car-logos-dataset/master/logos/optimized/acura.svg",
+    "Audi": "https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg",
+    "BMW": "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg",
+    "Mercedes-Benz": "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",
+    "Ford": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_motor_company_logo.svg",
+    "Toyota": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Toyota_logo_%282020%29.svg",
+    "Honda": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg",
+    "Hyundai": "https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg",
+    "Chevrolet": "https://raw.githubusercontent.com/fannarsh/car-logos-dataset/master/logos/optimized/chevrolet.svg",
+    "Porsche": "https://raw.githubusercontent.com/fannarsh/car-logos-dataset/master/logos/optimized/porsche.svg",
+    "Nissan": "https://raw.githubusercontent.com/fannarsh/car-logos-dataset/master/logos/optimized/nissan.svg",
+    "Volkswagen": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg",
+    "default": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Circle-icons-car.svg/512px-Circle-icons-car.svg.png"
+}
+
+# Sidebar Controls & Professional Developer Card
+with st.sidebar:
+    st.markdown("### ⚙️ Dashboard Controls")
+    theme_choice = st.radio("Display Mode", ["Dark Mode 🌙", "Light Mode ☀️"], index=0)
+    
+    st.markdown("---")
+    st.markdown("### 👨‍💻 Engineering & Contact")
+    st.markdown("""
+    <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid #4f46e5; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+        <div style="font-weight: 800; font-size: 16px; color: #818cf8;">Sunny Thakur</div>
+        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 8px;">Machine Learning Engineer & Educator</div>
+        <div style="font-size: 11px; line-height: 1.4; color: #cbd5e1;">Engineered complete ML pipeline, Random Forest optimization & end-to-end deployment.</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Direct 1-Click Connect Buttons
+    # Note: Replace '91XXXXXXXXXX' with your actual phone number if desired
+    whatsapp_direct_url = "https://wa.me/919999999999?text=Hi%20Sunny,%20I%20reviewed%20your%20CarValue-AI%20project!"
+    linkedin_url = "https://www.linkedin.com"
+    github_url = "https://github.com/sunnythakursunny650-cell/CarValue-AI"
+
+    col_btn1, col_btn2 = st.columns(2)
+    with col_btn1:
+        st.markdown(f'<a href="{whatsapp_direct_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:9px; border-radius:8px; border:none; background:#22c55e; color:white; font-weight:700; font-size:12px; cursor:pointer;">💬 WhatsApp</button></a>', unsafe_allow_html=True)
+    with col_btn2:
+        st.markdown(f'<a href="{linkedin_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:9px; border-radius:8px; border:none; background:#0284c7; color:white; font-weight:700; font-size:12px; cursor:pointer;">💼 LinkedIn</button></a>', unsafe_allow_html=True)
+    
+    st.write("")
+    st.markdown(f'<a href="{github_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:8px; border-radius:8px; border:1px solid #475569; background:transparent; color:#94a3b8; font-size:12px; cursor:pointer;">📂 View Project on GitHub</button></a>', unsafe_allow_html=True)
+
+# Theme Dynamic Configuration
 is_dark = (theme_choice == "Dark Mode 🌙")
 
 if is_dark:
@@ -68,18 +107,6 @@ st.markdown(f"""
         margin-bottom: 24px;
         box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
     }}
-    .author-badge {{
-        background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
-        color: #ffffff;
-        border: 1px solid #6366f1;
-        padding: 6px 14px;
-        border-radius: 9999px;
-        font-size: 13px;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-    }}
     .valuation-card {{
         background: {card_bg};
         border: 1.5px solid #10b981;
@@ -114,14 +141,6 @@ st.markdown(f"""
         padding: 16px;
         text-align: center;
     }}
-    .developer-footer {{
-        border-top: 1px solid {card_border};
-        margin-top: 40px;
-        padding: 20px 0 10px 0;
-        text-align: center;
-        color: {subtext_color};
-        font-size: 14px;
-    }}
     div[data-baseweb="select"] > div {{
         background-color: {input_bg} !important;
         color: {text_color} !important;
@@ -129,50 +148,15 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
-# Load Serialized Pipelines
-@st.cache_resource
-def load_artifacts():
-    pipeline = joblib.load("artifacts/car_price_pipeline.pkl")
-    with open("artifacts/car_meta.json", "r") as f:
-        meta = json.load(f)
-    return pipeline, meta
-
-pipeline, meta = load_artifacts()
-
-# Reliable Vector Badges
-BRAND_LOGOS = {
-    "Audi": "https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg",
-    "BMW": "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg",
-    "Mercedes-Benz": "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",
-    "Ford": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_motor_company_logo.svg",
-    "Toyota": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Toyota_logo_%282020%29.svg",
-    "Honda": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg",
-    "Hyundai": "https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg",
-    "Chevrolet": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Chevrolet-logo.png",
-    "Porsche": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Porsche_logo.svg/480px-Porsche_logo.svg.png",
-    "Nissan": "https://upload.wikimedia.org/wikipedia/commons/8/82/Nissan_logo.png",
-    "Volkswagen": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg",
-    "default": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Circle-icons-car.svg/512px-Circle-icons-car.svg.png"
-}
-
-# Header Banner
+# Main Application Banner
 st.markdown(f"""
 <div class="main-header">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-        <div>
-            <h1 style="margin: 0; font-size: 30px; font-weight: 800; color: {text_color}; letter-spacing: -0.5px;">
-                🚗 CarValue-AI Pro
-            </h1>
-            <p style="color: {subtext_color}; margin: 4px 0 0 0; font-size: 14px;">
-                Automated Ensemble Valuation Engine & Multi-Horizon Depreciation Analytics
-            </p>
-        </div>
-        <div>
-            <div class="author-badge">
-                👨‍💻 Developed by Sunny Thakur
-            </div>
-        </div>
-    </div>
+    <h1 style="margin: 0; font-size: 30px; font-weight: 800; color: {text_color}; letter-spacing: -0.5px;">
+        🚗 CarValue-AI Pro
+    </h1>
+    <p style="color: {subtext_color}; margin: 4px 0 0 0; font-size: 14px;">
+        Automated Machine Learning Valuation Engine & Multi-Horizon Depreciation Analytics
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -222,12 +206,12 @@ with left_col:
 with right_col:
     st.markdown("### 📊 Valuation Intelligence")
     
-    # Official Manufacturer Visual
+    # Manufacturer Identity Card
     logo_url = BRAND_LOGOS.get(brand, BRAND_LOGOS["default"])
     st.markdown(f"""
     <div class="car-display-card">
-        <div style="display:flex; justify-content:center; align-items:center; height:80px; margin-bottom:8px;">
-            <img src="{logo_url}" alt="{brand}" style="max-height: 75px; max-width: 130px; object-fit: contain;">
+        <div style="display:flex; justify-content:center; align-items:center; height:75px; margin-bottom:8px;">
+            <img src="{logo_url}" alt="{brand}" onerror="this.src='{BRAND_LOGOS['default']}';" style="max-height: 70px; max-width: 120px; object-fit: contain;">
         </div>
         <div style="font-size: 20px; font-weight: 700; color: {text_color};">{brand} &bull; {model_name}</div>
         <div style="color: {subtext_color}; font-size: 13px;">{body.upper()} | {year} Edition | {engine_type} Engine ({engine_v}L)</div>
@@ -251,7 +235,7 @@ with right_col:
     range_lower = int(predicted_val * 0.94)
     range_upper = int(predicted_val * 1.06)
 
-    # EMI Arithmetic
+    # EMI Calculation
     principal = predicted_val * ((100 - downpayment_pct) / 100)
     monthly_r = interest_rate / (12 * 100)
     months = loan_tenure_years * 12
@@ -285,7 +269,7 @@ with right_col:
         "Tolerance_Min_INR": range_lower,
         "Tolerance_Max_INR": range_upper,
         "Monthly_EMI_INR": monthly_emi,
-        "Generated_By": "Sunny Thakur (CarValue-AI)"
+        "Engineered_By": "Sunny Thakur"
     }])
     csv_data = report_df.to_csv(index=False).encode('utf-8')
     st.download_button(
@@ -365,10 +349,3 @@ with m4:
         <small style="color: {subtext_color};">Random Forest ensemble production runtime</small>
     </div>
     """, unsafe_allow_html=True)
-
-# Footer
-st.markdown(f"""
-<div class="developer-footer">
-    CarValue-AI Engine &bull; Developed by <b style="color: {text_color};">Sunny Thakur</b> &bull; Production Ready Machine Learning System
-</div>
-""", unsafe_allow_html=True)
