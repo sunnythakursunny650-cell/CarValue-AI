@@ -5,33 +5,72 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-# Application Configuration
+# Page Configuration
 st.set_page_config(
     page_title="CarValue AI — Smart Vehicle Valuation Engine",
     page_icon="🚗",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
-# Custom Glassmorphic Dark Architecture Styling
-st.markdown("""
+# Sidebar: Theme & Share Controls
+with st.sidebar:
+    st.markdown("### ⚙️ Dashboard Preferences")
+    theme_choice = st.radio("Display Theme", ["Dark Mode 🌙", "Light Mode ☀️"], index=0)
+    st.markdown("---")
+    st.markdown("### 📤 Share Platform")
+    current_url = "https://carvalue-ai.streamlit.app"
+    
+    st.text_input("Direct Application Link", value=current_url, disabled=True)
+    
+    c_s1, c_s2 = st.columns(2)
+    with c_s1:
+        whatsapp_share = f"https://api.whatsapp.com/send?text=Check%20out%20CarValue-AI%20Used%20Car%20Price%20Predictor:%20{current_url}"
+        st.markdown(f'<a href="{whatsapp_share}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:8px; border-radius:8px; border:none; background:#25D366; color:white; font-weight:600; cursor:pointer;">WhatsApp</button></a>', unsafe_allow_html=True)
+    with c_s2:
+        linkedin_share = f"https://www.linkedin.com/sharing/share-offsite/?url={current_url}"
+        st.markdown(f'<a href="{linkedin_share}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:8px; border-radius:8px; border:none; background:#0077b5; color:white; font-weight:600; cursor:pointer;">LinkedIn</button></a>', unsafe_allow_html=True)
+
+# Dynamic Styling based on Theme Choice
+is_dark = (theme_choice == "Dark Mode 🌙")
+
+if is_dark:
+    bg_color = "#080d1a"
+    text_color = "#f8fafc"
+    card_bg = "#0f172a"
+    card_border = "#1e293b"
+    header_gradient = "linear-gradient(90deg, #0f172a 0%, #1e1b4b 100%)"
+    header_border = "#312e81"
+    subtext_color = "#94a3b8"
+    input_bg = "#111c35"
+else:
+    bg_color = "#f8fafc"
+    text_color = "#0f172a"
+    card_bg = "#ffffff"
+    card_border = "#e2e8f0"
+    header_gradient = "linear-gradient(90deg, #e2e8f0 0%, #e0e7ff 100%)"
+    header_border = "#cbd5e1"
+    subtext_color = "#475569"
+    input_bg = "#ffffff"
+
+st.markdown(f"""
 <style>
-    .stApp {
-        background-color: #080d1a;
-        color: #f8fafc;
+    .stApp {{
+        background-color: {bg_color};
+        color: {text_color};
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-    .main-header {
-        background: linear-gradient(90deg, #0f172a 0%, #1e1b4b 100%);
-        border: 1px solid #312e81;
+    }}
+    .main-header {{
+        background: {header_gradient};
+        border: 1px solid {header_border};
         border-radius: 16px;
-        padding: 24px 28px;
+        padding: 22px 28px;
         margin-bottom: 24px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-    }
-    .author-badge {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }}
+    .author-badge {{
         background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
-        color: #e0e7ff;
+        color: #ffffff;
         border: 1px solid #6366f1;
         padding: 6px 14px;
         border-radius: 9999px;
@@ -40,54 +79,57 @@ st.markdown("""
         display: inline-flex;
         align-items: center;
         gap: 6px;
-    }
-    .valuation-card {
-        background: linear-gradient(145deg, #062828 0%, #0d1929 100%);
+    }}
+    .valuation-card {{
+        background: {card_bg};
         border: 1.5px solid #10b981;
         border-radius: 16px;
-        padding: 24px;
+        padding: 22px;
         margin-top: 14px;
         box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.15);
-    }
-    .spec-pill {
+    }}
+    .car-display-card {{
+        background: {card_bg};
+        border: 1px solid {card_border};
+        border-radius: 14px;
+        padding: 16px;
+        text-align: center;
+        margin-bottom: 15px;
+    }}
+    .spec-pill {{
         background-color: rgba(16, 185, 129, 0.15);
-        color: #34d399;
+        color: #10b981;
         border: 1px solid #10b981;
         padding: 5px 12px;
         border-radius: 14px;
         font-size: 12px;
-        font-weight: 500;
+        font-weight: 600;
         display: inline-block;
         margin-top: 8px;
-    }
-    .stat-tile {
-        background: #0f172a;
-        border: 1px solid #1e293b;
+    }}
+    .stat-tile {{
+        background: {card_bg};
+        border: 1px solid {card_border};
         border-radius: 12px;
         padding: 16px;
         text-align: center;
-    }
-    .developer-footer {
-        border-top: 1px solid #1e293b;
+    }}
+    .developer-footer {{
+        border-top: 1px solid {card_border};
         margin-top: 40px;
         padding: 20px 0 10px 0;
         text-align: center;
-        color: #64748b;
+        color: {subtext_color};
         font-size: 14px;
-    }
-    div[data-baseweb="select"] > div {
-        background-color: #111c35 !important;
-        border-color: #273553 !important;
-        color: white !important;
-    }
-    input {
-        background-color: #111c35 !important;
-        color: white !important;
-    }
+    }}
+    div[data-baseweb="select"] > div {{
+        background-color: {input_bg} !important;
+        color: {text_color} !important;
+    }}
 </style>
 """, unsafe_allow_html=True)
 
-# Load Artifacts
+# Load Serialized Pipelines
 @st.cache_resource
 def load_artifacts():
     pipeline = joblib.load("artifacts/car_price_pipeline.pkl")
@@ -97,40 +139,31 @@ def load_artifacts():
 
 pipeline, meta = load_artifacts()
 
-# High-Resolution Automotive Imagery Mapping
-BRAND_IMAGES = {
-    "Acura": "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80",
-    "Audi": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=800&q=80",
-    "BMW": "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80",
-    "Buick": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80",
-    "Cadillac": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80",
-    "Chevrolet": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80",
-    "Chrysler": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
-    "Dodge": "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=800&q=80",
-    "Ford": "https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=800&q=80",
-    "Honda": "https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=800&q=80",
-    "Hyundai": "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?auto=format&fit=crop&w=800&q=80",
-    "Jeep": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80",
-    "Lexus": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80",
-    "Mercedes-Benz": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
-    "Mitsubishi": "https://images.unsplash.com/photo-1541348263662-e0c8de4259ba?auto=format&fit=crop&w=800&q=80",
-    "Nissan": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80",
-    "Porsche": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
-    "Toyota": "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=800&q=80",
-    "Volkswagen": "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80",
-    "Volvo": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80",
-    "default": "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80"
+# Reliable Vector Badges
+BRAND_LOGOS = {
+    "Audi": "https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg",
+    "BMW": "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg",
+    "Mercedes-Benz": "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",
+    "Ford": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_motor_company_logo.svg",
+    "Toyota": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Toyota_logo_%282020%29.svg",
+    "Honda": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg",
+    "Hyundai": "https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg",
+    "Chevrolet": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Chevrolet-logo.png",
+    "Porsche": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Porsche_logo.svg/480px-Porsche_logo.svg.png",
+    "Nissan": "https://upload.wikimedia.org/wikipedia/commons/8/82/Nissan_logo.png",
+    "Volkswagen": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg",
+    "default": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Circle-icons-car.svg/512px-Circle-icons-car.svg.png"
 }
 
-# Header Banner with Author Signature
-st.markdown("""
+# Header Banner
+st.markdown(f"""
 <div class="main-header">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
         <div>
-            <h1 style="margin: 0; font-size: 32px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">
+            <h1 style="margin: 0; font-size: 30px; font-weight: 800; color: {text_color}; letter-spacing: -0.5px;">
                 🚗 CarValue-AI Pro
             </h1>
-            <p style="color: #94a3b8; margin: 6px 0 0 0; font-size: 15px;">
+            <p style="color: {subtext_color}; margin: 4px 0 0 0; font-size: 14px;">
                 Automated Ensemble Valuation Engine & Multi-Horizon Depreciation Analytics
             </p>
         </div>
@@ -143,13 +176,12 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Split Layout
 left_col, right_col = st.columns([1.1, 1], gap="large")
 
 with left_col:
     st.markdown("### ⚙️ Vehicle Parameters")
-    
     c1, c2 = st.columns(2)
+    
     with c1:
         brand = st.selectbox("Manufacturer / Brand", meta["brands"], index=0)
         body = st.selectbox("Body Configuration", meta["bodies"], index=0)
@@ -158,16 +190,14 @@ with left_col:
             min_value=0.0,
             max_value=float(meta["mileage_max"]),
             value=150.0,
-            step=10.0,
-            help="Normalized vehicle mileage efficiency rating."
+            step=10.0
         )
         engine_v = st.number_input(
             "Displacement (Engine Liters)",
             min_value=0.8,
             max_value=6.5,
             value=2.0,
-            step=0.1,
-            help="Engine capacity in Liters (e.g., 2.0L, 3.5L)."
+            step=0.1
         )
 
     with c2:
@@ -179,20 +209,30 @@ with left_col:
             value=2012,
             step=1
         )
-        # Cascading dependent dropdown
         available_models = meta["brand_models"].get(brand, ["Standard"])
         model_name = st.selectbox("Vehicle Model Variant", available_models)
         engine_type = st.selectbox("Fuel / Powertrain Type", meta["engine_types"], index=0)
 
-    st.write("")
-    calculate_clicked = st.button("🔮 Calculate Estimated Market Valuation", use_container_width=True, type="primary")
+    # Loan Estimator Widget
+    with st.expander("💳 Loan & EMI Customizer"):
+        downpayment_pct = st.slider("Down Payment (%)", 10, 50, 20, 5)
+        interest_rate = st.slider("Loan Interest Rate (% p.a.)", 7.0, 15.0, 9.5, 0.5)
+        loan_tenure_years = st.selectbox("Tenure Duration", [3, 5, 7], index=1)
 
 with right_col:
     st.markdown("### 📊 Valuation Intelligence")
     
-    # Live preview image
-    selected_img = BRAND_IMAGES.get(brand, BRAND_IMAGES["default"])
-    st.image(selected_img, caption=f"Vehicle Lineup Preview: {brand} {model_name}", use_container_width=True)
+    # Official Manufacturer Visual
+    logo_url = BRAND_LOGOS.get(brand, BRAND_LOGOS["default"])
+    st.markdown(f"""
+    <div class="car-display-card">
+        <div style="display:flex; justify-content:center; align-items:center; height:80px; margin-bottom:8px;">
+            <img src="{logo_url}" alt="{brand}" style="max-height: 75px; max-width: 130px; object-fit: contain;">
+        </div>
+        <div style="font-size: 20px; font-weight: 700; color: {text_color};">{brand} &bull; {model_name}</div>
+        <div style="color: {subtext_color}; font-size: 13px;">{body.upper()} | {year} Edition | {engine_type} Engine ({engine_v}L)</div>
+    </div>
+    """, unsafe_allow_html=True)
 
     input_data = pd.DataFrame([{
         "Brand": brand,
@@ -205,23 +245,30 @@ with right_col:
         "Model": model_name
     }])
 
-    # Model Inference
+    # Model Prediction
     log_val = pipeline.predict(input_data)[0]
     predicted_val = int(np.expm1(log_val))
     range_lower = int(predicted_val * 0.94)
     range_upper = int(predicted_val * 1.06)
 
-    # Valuation Result Display
+    # EMI Arithmetic
+    principal = predicted_val * ((100 - downpayment_pct) / 100)
+    monthly_r = interest_rate / (12 * 100)
+    months = loan_tenure_years * 12
+    monthly_emi = int((principal * monthly_r * ((1 + monthly_r) ** months)) / (((1 + monthly_r) ** months) - 1))
+
+    # Metric Display Box
     st.markdown(f"""
     <div class="valuation-card">
-        <div style="color: #34d399; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;">
-            Fair Market Estimate
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="color: #10b981; font-size: 13px; font-weight: 700; text-transform: uppercase;">Fair Market Valuation</span>
+            <span style="background: rgba(56, 189, 248, 0.15); color: #0284c7; padding: 3px 9px; border-radius: 6px; font-size: 12px; font-weight: 600;">Est. EMI: ₹{monthly_emi:,}/mo</span>
         </div>
-        <div style="font-size: 38px; font-weight: 900; color: #ffffff; margin: 4px 0 6px 0;">
+        <div style="font-size: 38px; font-weight: 900; color: {text_color}; margin: 4px 0 6px 0;">
             ₹ {predicted_val:,}
         </div>
-        <div style="color: #94a3b8; font-size: 14px; margin-bottom: 6px;">
-            Estimated Tolerance Range: <b style="color: #f1f5f9;">₹ {range_lower:,}</b> — <b style="color: #f1f5f9;">₹ {range_upper:,}</b>
+        <div style="color: {subtext_color}; font-size: 14px; margin-bottom: 6px;">
+            Estimated Tolerance Range: <b style="color: {text_color};">₹ {range_lower:,}</b> — <b style="color: {text_color};">₹ {range_upper:,}</b>
         </div>
         <div class="spec-pill">
             🏷️ {brand} {model_name} &bull; {body.title()} &bull; {year} &bull; {engine_type}
@@ -229,7 +276,27 @@ with right_col:
     </div>
     """, unsafe_allow_html=True)
 
-    # Real-Time Depreciation Velocity Chart
+    # Export Valuation Report
+    report_df = pd.DataFrame([{
+        "Manufacturer": brand,
+        "Model": model_name,
+        "Year": year,
+        "Estimated_Value_INR": predicted_val,
+        "Tolerance_Min_INR": range_lower,
+        "Tolerance_Max_INR": range_upper,
+        "Monthly_EMI_INR": monthly_emi,
+        "Generated_By": "Sunny Thakur (CarValue-AI)"
+    }])
+    csv_data = report_df.to_csv(index=False).encode('utf-8')
+    st.download_button(
+        label="📥 Download Valuation Certificate (CSV)",
+        data=csv_data,
+        file_name=f"Valuation_{brand}_{model_name}_{year}.csv",
+        mime="text/csv",
+        use_container_width=True
+    )
+
+    # Plotly Trend Curve
     forecast_years = list(range(max(meta["year_min"], year - 3), min(meta["year_max"] + 1, year + 4)))
     forecast_prices = []
     for y_iter in forecast_years:
@@ -242,66 +309,66 @@ with right_col:
         x=forecast_years,
         y=forecast_prices,
         mode="lines+markers",
-        line=dict(color="#38bdf8", width=3),
-        marker=dict(size=8, color="#818cf8", symbol="circle"),
+        line=dict(color="#0284c7" if not is_dark else "#38bdf8", width=3),
+        marker=dict(size=8, color="#6366f1", symbol="circle"),
         name="Market Trend"
     ))
     chart.update_layout(
-        title="Interactive Depreciation Horizon vs Model Year",
-        title_font=dict(size=14, color="#cbd5e1"),
+        title="Depreciation Horizon vs Model Year",
+        title_font=dict(size=14, color=subtext_color),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(15, 23, 42, 0.7)",
-        height=220,
-        margin=dict(l=10, r=10, t=35, b=10),
-        xaxis=dict(gridcolor="#1e293b", tickfont=dict(color="#94a3b8")),
-        yaxis=dict(gridcolor="#1e293b", tickfont=dict(color="#94a3b8"), tickprefix="₹")
+        plot_bgcolor="rgba(15, 23, 42, 0.7)" if is_dark else "#f1f5f9",
+        height=200,
+        margin=dict(l=10, r=10, t=30, b=10),
+        xaxis=dict(gridcolor=card_border, tickfont=dict(color=subtext_color)),
+        yaxis=dict(gridcolor=card_border, tickfont=dict(color=subtext_color), tickprefix="₹")
     )
     st.plotly_chart(chart, use_container_width=True)
 
-# Advanced Explanatory Metric Breakdown
+# Predictive Signal Attribution Tiles
 st.markdown("---")
 st.markdown("### 🧠 Predictive Signal Attribution")
 m1, m2, m3, m4 = st.columns(4)
 
 with m1:
-    st.markdown("""
+    st.markdown(f"""
     <div class="stat-tile">
-        <div style="color: #60a5fa; font-weight: 700; font-size: 14px;">Engine Displacement</div>
-        <div style="font-size: 19px; font-weight: 800; color: #ffffff; margin: 4px 0;">+ High Weight</div>
-        <small style="color: #94a3b8;">Larger capacity directly scales premium valuation</small>
+        <div style="color: #3b82f6; font-weight: 700; font-size: 14px;">Engine Displacement</div>
+        <div style="font-size: 19px; font-weight: 800; color: {text_color}; margin: 4px 0;">+ High Weight</div>
+        <small style="color: {subtext_color};">Larger capacity directly scales premium valuation</small>
     </div>
     """, unsafe_allow_html=True)
 
 with m2:
-    st.markdown("""
+    st.markdown(f"""
     <div class="stat-tile">
-        <div style="color: #34d399; font-weight: 700; font-size: 14px;">Model Longevity</div>
-        <div style="font-size: 19px; font-weight: 800; color: #ffffff; margin: 4px 0;">~6.2% Annual Drop</div>
-        <small style="color: #94a3b8;">Calculated year-over-year residual curve decay</small>
+        <div style="color: #10b981; font-weight: 700; font-size: 14px;">Model Longevity</div>
+        <div style="font-size: 19px; font-weight: 800; color: {text_color}; margin: 4px 0;">~6.2% Annual Drop</div>
+        <small style="color: {subtext_color};">Calculated year-over-year residual curve decay</small>
     </div>
     """, unsafe_allow_html=True)
 
 with m3:
-    st.markdown("""
+    st.markdown(f"""
     <div class="stat-tile">
         <div style="color: #f59e0b; font-weight: 700; font-size: 14px;">Brand Tier Multiplier</div>
-        <div style="font-size: 19px; font-weight: 800; color: #ffffff; margin: 4px 0;">Tier Encoded</div>
-        <small style="color: #94a3b8;">Captures luxury vs commuter equity elasticity</small>
+        <div style="font-size: 19px; font-weight: 800; color: {text_color}; margin: 4px 0;">Tier Encoded</div>
+        <small style="color: {subtext_color};">Captures luxury vs commuter equity elasticity</small>
     </div>
     """, unsafe_allow_html=True)
 
 with m4:
-    st.markdown("""
+    st.markdown(f"""
     <div class="stat-tile">
-        <div style="color: #a78bfa; font-weight: 700; font-size: 14px;">Inference Latency</div>
-        <div style="font-size: 19px; font-weight: 800; color: #ffffff; margin: 4px 0;">< 14 ms</div>
-        <small style="color: #94a3b8;">Random Forest ensemble production runtime</small>
+        <div style="color: #8b5cf6; font-weight: 700; font-size: 14px;">Inference Latency</div>
+        <div style="font-size: 19px; font-weight: 800; color: {text_color}; margin: 4px 0;">< 14 ms</div>
+        <small style="color: {subtext_color};">Random Forest ensemble production runtime</small>
     </div>
     """, unsafe_allow_html=True)
 
 # Footer
 st.markdown(f"""
 <div class="developer-footer">
-    CarValue-AI Engine &bull; Developed by <b style="color: #e2e8f0;">Sunny Thakur</b> &bull; Production Ready Machine Learning System
+    CarValue-AI Engine &bull; Developed by <b style="color: {text_color};">Sunny Thakur</b> &bull; Production Ready Machine Learning System
 </div>
 """, unsafe_allow_html=True)
