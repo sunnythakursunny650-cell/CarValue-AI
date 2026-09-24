@@ -23,24 +23,54 @@ def load_artifacts():
 
 pipeline, meta = load_artifacts()
 
-# High-Resolution Direct Vehicle Photo Links (100% Reliable Delivery)
-CAR_PHOTOS = {
-    "Acura": "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Audi": "https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "BMW": "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Mercedes-Benz": "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Ford": "https://images.pexels.com/photos/100656/pexels-photo-100656.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Toyota": "https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Honda": "https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Hyundai": "https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Chevrolet": "https://images.pexels.com/photos/244206/pexels-photo-244206.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Porsche": "https://images.pexels.com/photos/3802508/pexels-photo-3802508.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Nissan": "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "Volkswagen": "https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "default": "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800"
+# Model & Brand-Specific High-Resolution Image Mapping
+MODEL_PHOTOS = {
+    # Audi Models
+    "A4": "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?auto=format&fit=crop&w=800&q=80",
+    "A6": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=800&q=80",
+    "Q7": "https://images.unsplash.com/photo-1541348263662-e0c8de4259ba?auto=format&fit=crop&w=800&q=80",
+    "TT": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+    
+    # BMW Models
+    "3 Series": "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80",
+    "5 Series": "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=800&q=80",
+    "X5": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80",
+    "M3": "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80",
+    
+    # Mercedes-Benz Models
+    "C-Class": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
+    "E-Class": "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80",
+    "S-Class": "https://images.unsplash.com/photo-1622353219448-46a489721752?auto=format&fit=crop&w=800&q=80",
+    
+    # Ford Models
+    "Mustang": "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=800&q=80",
+    "Focus": "https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=800&q=80",
+    
+    # Toyota Models
+    "Corolla": "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=800&q=80",
+    "Camry": "https://images.unsplash.com/photo-1623869675781-80aa31012a5a?auto=format&fit=crop&w=800&q=80",
+    
+    # Volkswagen Models
+    "Golf": "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80",
+    "Passat": "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80",
+    
+    # Fallback Brand Photos
+    "Acura": "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80",
+    "Audi": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=800&q=80",
+    "BMW": "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80",
+    "Mercedes-Benz": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
+    "Ford": "https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=800&q=80",
+    "Toyota": "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=800&q=80",
+    "Honda": "https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=800&q=80",
+    "Hyundai": "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?auto=format&fit=crop&w=800&q=80",
+    "Chevrolet": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80",
+    "Porsche": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+    "Nissan": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80",
+    "Volkswagen": "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80",
+    "default": "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80"
 }
 
-# Sidebar Controls & Crystal Clear Developer Card
+# Sidebar Controls & Sharp Developer Card
 with st.sidebar:
     st.markdown("### ⚙️ Dashboard Controls")
     theme_choice = st.radio("Display Mode", ["Dark Mode 🌙", "Light Mode ☀️"], index=0)
@@ -48,7 +78,6 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### 👨‍💻 Engineering & Contact")
     
-    # Sharp, High-Contrast Typography Card
     if theme_choice == "Dark Mode 🌙":
         dev_bg = "rgba(99, 102, 241, 0.12)"
         dev_border = "#6366f1"
@@ -66,13 +95,12 @@ with st.sidebar:
     <div style="background: {dev_bg}; border: 1.5px solid {dev_border}; border-radius: 12px; padding: 16px; margin-bottom: 14px;">
         <div style="font-weight: 800; font-size: 17px; color: {name_color}; margin-bottom: 4px;">Sunny Thakur</div>
         <div style="font-weight: 700; font-size: 13px; color: {role_color}; margin-bottom: 8px;">Machine Learning Engineer & Educator</div>
-        <div style="font-weight: 500; font-size: 13px; line-height: 1.5; color: {desc_color};">
+        <div style="font-weight: 600; font-size: 13px; line-height: 1.5; color: {desc_color};">
             Engineered complete end-to-end ML pipeline, Random Forest optimization & production Streamlit architecture.
         </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Direct 1-Click Connect Buttons
     whatsapp_direct_url = "https://wa.me/919999999999?text=Hi%20Sunny,%20I%20reviewed%20your%20CarValue-AI%20project!"
     linkedin_url = "https://www.linkedin.com"
     github_url = "https://github.com/sunnythakursunny650-cell/CarValue-AI"
@@ -86,7 +114,7 @@ with st.sidebar:
     st.write("")
     st.markdown(f'<a href="{github_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:8px; border-radius:8px; border:1px solid #475569; background:transparent; color:#64748b; font-weight:600; font-size:12px; cursor:pointer;">📂 View Project on GitHub</button></a>', unsafe_allow_html=True)
 
-# Theme Dynamic Configuration
+# Theme Configuration
 is_dark = (theme_choice == "Dark Mode 🌙")
 
 if is_dark:
@@ -156,7 +184,7 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
-# Main Application Banner
+# Main Banner
 st.markdown(f"""
 <div class="main-header">
     <h1 style="margin: 0; font-size: 30px; font-weight: 800; color: {text_color}; letter-spacing: -0.5px;">
@@ -214,8 +242,8 @@ with left_col:
 with right_col:
     st.markdown("### 📊 Valuation Intelligence")
     
-    # High-Definition Live Car Image
-    car_photo_url = CAR_PHOTOS.get(brand, CAR_PHOTOS["default"])
+    # Priority: Model image > Brand fallback image > Default car
+    car_photo_url = MODEL_PHOTOS.get(model_name, MODEL_PHOTOS.get(brand, MODEL_PHOTOS["default"]))
     st.image(car_photo_url, caption=f"{brand} {model_name} ({year})", use_container_width=True)
 
     input_data = pd.DataFrame([{
