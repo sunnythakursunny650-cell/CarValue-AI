@@ -23,40 +23,56 @@ def load_artifacts():
 
 pipeline, meta = load_artifacts()
 
-# Reliable Vector Badges
-BRAND_LOGOS = {
-    "Acura": "https://raw.githubusercontent.com/fannarsh/car-logos-dataset/master/logos/optimized/acura.svg",
-    "Audi": "https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg",
-    "BMW": "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg",
-    "Mercedes-Benz": "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",
-    "Ford": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_motor_company_logo.svg",
-    "Toyota": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Toyota_logo_%282020%29.svg",
-    "Honda": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg",
-    "Hyundai": "https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg",
-    "Chevrolet": "https://raw.githubusercontent.com/fannarsh/car-logos-dataset/master/logos/optimized/chevrolet.svg",
-    "Porsche": "https://raw.githubusercontent.com/fannarsh/car-logos-dataset/master/logos/optimized/porsche.svg",
-    "Nissan": "https://raw.githubusercontent.com/fannarsh/car-logos-dataset/master/logos/optimized/nissan.svg",
-    "Volkswagen": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg",
-    "default": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Circle-icons-car.svg/512px-Circle-icons-car.svg.png"
+# High-Resolution Direct Vehicle Photo Links (100% Reliable Delivery)
+CAR_PHOTOS = {
+    "Acura": "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Audi": "https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "BMW": "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Mercedes-Benz": "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Ford": "https://images.pexels.com/photos/100656/pexels-photo-100656.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Toyota": "https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Honda": "https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Hyundai": "https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Chevrolet": "https://images.pexels.com/photos/244206/pexels-photo-244206.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Porsche": "https://images.pexels.com/photos/3802508/pexels-photo-3802508.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Nissan": "https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "Volkswagen": "https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "default": "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800"
 }
 
-# Sidebar Controls & Professional Developer Card
+# Sidebar Controls & Crystal Clear Developer Card
 with st.sidebar:
     st.markdown("### ⚙️ Dashboard Controls")
     theme_choice = st.radio("Display Mode", ["Dark Mode 🌙", "Light Mode ☀️"], index=0)
     
     st.markdown("---")
     st.markdown("### 👨‍💻 Engineering & Contact")
-    st.markdown("""
-    <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid #4f46e5; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-        <div style="font-weight: 800; font-size: 16px; color: #818cf8;">Sunny Thakur</div>
-        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 8px;">Machine Learning Engineer & Educator</div>
-        <div style="font-size: 11px; line-height: 1.4; color: #cbd5e1;">Engineered complete ML pipeline, Random Forest optimization & end-to-end deployment.</div>
+    
+    # Sharp, High-Contrast Typography Card
+    if theme_choice == "Dark Mode 🌙":
+        dev_bg = "rgba(99, 102, 241, 0.12)"
+        dev_border = "#6366f1"
+        name_color = "#a5b4fc"
+        role_color = "#38bdf8"
+        desc_color = "#e2e8f0"
+    else:
+        dev_bg = "#f1f5f9"
+        dev_border = "#4f46e5"
+        name_color = "#312e81"
+        role_color = "#1d4ed8"
+        desc_color = "#0f172a"
+        
+    st.markdown(f"""
+    <div style="background: {dev_bg}; border: 1.5px solid {dev_border}; border-radius: 12px; padding: 16px; margin-bottom: 14px;">
+        <div style="font-weight: 800; font-size: 17px; color: {name_color}; margin-bottom: 4px;">Sunny Thakur</div>
+        <div style="font-weight: 700; font-size: 13px; color: {role_color}; margin-bottom: 8px;">Machine Learning Engineer & Educator</div>
+        <div style="font-weight: 500; font-size: 13px; line-height: 1.5; color: {desc_color};">
+            Engineered complete end-to-end ML pipeline, Random Forest optimization & production Streamlit architecture.
+        </div>
     </div>
     """, unsafe_allow_html=True)
     
     # Direct 1-Click Connect Buttons
-    # Note: Replace '91XXXXXXXXXX' with your actual phone number if desired
     whatsapp_direct_url = "https://wa.me/919999999999?text=Hi%20Sunny,%20I%20reviewed%20your%20CarValue-AI%20project!"
     linkedin_url = "https://www.linkedin.com"
     github_url = "https://github.com/sunnythakursunny650-cell/CarValue-AI"
@@ -68,7 +84,7 @@ with st.sidebar:
         st.markdown(f'<a href="{linkedin_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:9px; border-radius:8px; border:none; background:#0284c7; color:white; font-weight:700; font-size:12px; cursor:pointer;">💼 LinkedIn</button></a>', unsafe_allow_html=True)
     
     st.write("")
-    st.markdown(f'<a href="{github_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:8px; border-radius:8px; border:1px solid #475569; background:transparent; color:#94a3b8; font-size:12px; cursor:pointer;">📂 View Project on GitHub</button></a>', unsafe_allow_html=True)
+    st.markdown(f'<a href="{github_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:8px; border-radius:8px; border:1px solid #475569; background:transparent; color:#64748b; font-weight:600; font-size:12px; cursor:pointer;">📂 View Project on GitHub</button></a>', unsafe_allow_html=True)
 
 # Theme Dynamic Configuration
 is_dark = (theme_choice == "Dark Mode 🌙")
@@ -86,10 +102,10 @@ else:
     bg_color = "#f8fafc"
     text_color = "#0f172a"
     card_bg = "#ffffff"
-    card_border = "#e2e8f0"
-    header_gradient = "linear-gradient(90deg, #e2e8f0 0%, #e0e7ff 100%)"
-    header_border = "#cbd5e1"
-    subtext_color = "#475569"
+    card_border = "#cbd5e1"
+    header_gradient = "linear-gradient(90deg, #f1f5f9 0%, #e0e7ff 100%)"
+    header_border = "#94a3b8"
+    subtext_color = "#334155"
     input_bg = "#ffffff"
 
 st.markdown(f"""
@@ -101,7 +117,7 @@ st.markdown(f"""
     }}
     .main-header {{
         background: {header_gradient};
-        border: 1px solid {header_border};
+        border: 1.5px solid {header_border};
         border-radius: 16px;
         padding: 22px 28px;
         margin-bottom: 24px;
@@ -115,28 +131,20 @@ st.markdown(f"""
         margin-top: 14px;
         box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.15);
     }}
-    .car-display-card {{
-        background: {card_bg};
-        border: 1px solid {card_border};
-        border-radius: 14px;
-        padding: 16px;
-        text-align: center;
-        margin-bottom: 15px;
-    }}
     .spec-pill {{
         background-color: rgba(16, 185, 129, 0.15);
-        color: #10b981;
-        border: 1px solid #10b981;
-        padding: 5px 12px;
+        color: #059669;
+        border: 1.5px solid #10b981;
+        padding: 6px 14px;
         border-radius: 14px;
-        font-size: 12px;
-        font-weight: 600;
+        font-size: 13px;
+        font-weight: 700;
         display: inline-block;
         margin-top: 8px;
     }}
     .stat-tile {{
         background: {card_bg};
-        border: 1px solid {card_border};
+        border: 1.5px solid {card_border};
         border-radius: 12px;
         padding: 16px;
         text-align: center;
@@ -154,7 +162,7 @@ st.markdown(f"""
     <h1 style="margin: 0; font-size: 30px; font-weight: 800; color: {text_color}; letter-spacing: -0.5px;">
         🚗 CarValue-AI Pro
     </h1>
-    <p style="color: {subtext_color}; margin: 4px 0 0 0; font-size: 14px;">
+    <p style="color: {subtext_color}; margin: 4px 0 0 0; font-size: 15px; font-weight: 500;">
         Automated Machine Learning Valuation Engine & Multi-Horizon Depreciation Analytics
     </p>
 </div>
@@ -206,17 +214,9 @@ with left_col:
 with right_col:
     st.markdown("### 📊 Valuation Intelligence")
     
-    # Manufacturer Identity Card
-    logo_url = BRAND_LOGOS.get(brand, BRAND_LOGOS["default"])
-    st.markdown(f"""
-    <div class="car-display-card">
-        <div style="display:flex; justify-content:center; align-items:center; height:75px; margin-bottom:8px;">
-            <img src="{logo_url}" alt="{brand}" onerror="this.src='{BRAND_LOGOS['default']}';" style="max-height: 70px; max-width: 120px; object-fit: contain;">
-        </div>
-        <div style="font-size: 20px; font-weight: 700; color: {text_color};">{brand} &bull; {model_name}</div>
-        <div style="color: {subtext_color}; font-size: 13px;">{body.upper()} | {year} Edition | {engine_type} Engine ({engine_v}L)</div>
-    </div>
-    """, unsafe_allow_html=True)
+    # High-Definition Live Car Image
+    car_photo_url = CAR_PHOTOS.get(brand, CAR_PHOTOS["default"])
+    st.image(car_photo_url, caption=f"{brand} {model_name} ({year})", use_container_width=True)
 
     input_data = pd.DataFrame([{
         "Brand": brand,
@@ -245,13 +245,13 @@ with right_col:
     st.markdown(f"""
     <div class="valuation-card">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="color: #10b981; font-size: 13px; font-weight: 700; text-transform: uppercase;">Fair Market Valuation</span>
-            <span style="background: rgba(56, 189, 248, 0.15); color: #0284c7; padding: 3px 9px; border-radius: 6px; font-size: 12px; font-weight: 600;">Est. EMI: ₹{monthly_emi:,}/mo</span>
+            <span style="color: #059669; font-size: 13px; font-weight: 800; text-transform: uppercase;">Fair Market Valuation</span>
+            <span style="background: rgba(56, 189, 248, 0.2); color: #0284c7; padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 700;">Est. EMI: ₹{monthly_emi:,}/mo</span>
         </div>
         <div style="font-size: 38px; font-weight: 900; color: {text_color}; margin: 4px 0 6px 0;">
             ₹ {predicted_val:,}
         </div>
-        <div style="color: {subtext_color}; font-size: 14px; margin-bottom: 6px;">
+        <div style="color: {subtext_color}; font-size: 14px; font-weight: 500; margin-bottom: 6px;">
             Estimated Tolerance Range: <b style="color: {text_color};">₹ {range_lower:,}</b> — <b style="color: {text_color};">₹ {range_upper:,}</b>
         </div>
         <div class="spec-pill">
@@ -317,35 +317,35 @@ m1, m2, m3, m4 = st.columns(4)
 with m1:
     st.markdown(f"""
     <div class="stat-tile">
-        <div style="color: #3b82f6; font-weight: 700; font-size: 14px;">Engine Displacement</div>
+        <div style="color: #2563eb; font-weight: 800; font-size: 14px;">Engine Displacement</div>
         <div style="font-size: 19px; font-weight: 800; color: {text_color}; margin: 4px 0;">+ High Weight</div>
-        <small style="color: {subtext_color};">Larger capacity directly scales premium valuation</small>
+        <small style="color: {subtext_color}; font-weight: 500;">Larger capacity directly scales premium valuation</small>
     </div>
     """, unsafe_allow_html=True)
 
 with m2:
     st.markdown(f"""
     <div class="stat-tile">
-        <div style="color: #10b981; font-weight: 700; font-size: 14px;">Model Longevity</div>
+        <div style="color: #059669; font-weight: 800; font-size: 14px;">Model Longevity</div>
         <div style="font-size: 19px; font-weight: 800; color: {text_color}; margin: 4px 0;">~6.2% Annual Drop</div>
-        <small style="color: {subtext_color};">Calculated year-over-year residual curve decay</small>
+        <small style="color: {subtext_color}; font-weight: 500;">Calculated year-over-year residual curve decay</small>
     </div>
     """, unsafe_allow_html=True)
 
 with m3:
     st.markdown(f"""
     <div class="stat-tile">
-        <div style="color: #f59e0b; font-weight: 700; font-size: 14px;">Brand Tier Multiplier</div>
+        <div style="color: #d97706; font-weight: 800; font-size: 14px;">Brand Tier Multiplier</div>
         <div style="font-size: 19px; font-weight: 800; color: {text_color}; margin: 4px 0;">Tier Encoded</div>
-        <small style="color: {subtext_color};">Captures luxury vs commuter equity elasticity</small>
+        <small style="color: {subtext_color}; font-weight: 500;">Captures luxury vs commuter equity elasticity</small>
     </div>
     """, unsafe_allow_html=True)
 
 with m4:
     st.markdown(f"""
     <div class="stat-tile">
-        <div style="color: #8b5cf6; font-weight: 700; font-size: 14px;">Inference Latency</div>
+        <div style="color: #7c3aed; font-weight: 800; font-size: 14px;">Inference Latency</div>
         <div style="font-size: 19px; font-weight: 800; color: {text_color}; margin: 4px 0;">< 14 ms</div>
-        <small style="color: {subtext_color};">Random Forest ensemble production runtime</small>
+        <small style="color: {subtext_color}; font-weight: 500;">Random Forest ensemble production runtime</small>
     </div>
     """, unsafe_allow_html=True)
