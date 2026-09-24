@@ -1,0 +1,265 @@
+{
+    "brands": [
+        "Acura",
+        "Audi",
+        "BMW",
+        "Buick",
+        "Cadillac",
+        "Chevrolet",
+        "Chrysler",
+        "Dodge",
+        "Ford",
+        "Honda",
+        "Hyundai",
+        "Infiniti",
+        "Jaguar",
+        "Jeep",
+        "Lexus",
+        "Lincoln",
+        "Mercedes-B",
+        "Mercury",
+        "Mitsubishi",
+        "Nissan",
+        "Oldsmobile",
+        "Plymouth",
+        "Pontiac",
+        "Porsche",
+        "Saab",
+        "Saturn",
+        "Subaru",
+        "Toyota",
+        "Volkswagen",
+        "Volvo"
+    ],
+    "bodies": [
+        "car",
+        "passenger"
+    ],
+    "engine_types": [
+        "Petrol",
+        "Diesel",
+        "Electric",
+        "Hybrid"
+    ],
+    "registrations": [
+        "yes",
+        "no"
+    ],
+    "brand_models": {
+        "Acura": [
+            "Integra",
+            "RL",
+            "TL"
+        ],
+        "Audi": [
+            "A4",
+            "A6",
+            "A8"
+        ],
+        "BMW": [
+            "323i",
+            "328i",
+            "528i"
+        ],
+        "Buick": [
+            "Century",
+            "LeSabre",
+            "Park Avenue",
+            "Regal"
+        ],
+        "Cadillac": [
+            "Catera",
+            "DeVille",
+            "Eldorado",
+            "Escalade",
+            "Seville"
+        ],
+        "Chevrolet": [
+            "Camaro",
+            "Cavalier",
+            "Corvette",
+            "Impala",
+            "Lumina",
+            "Malibu",
+            "Metro",
+            "Monte Carlo",
+            "Prizm"
+        ],
+        "Chrysler": [
+            "300M",
+            "Cirrus",
+            "Concorde",
+            "LHS",
+            "Sebring Conv.",
+            "Sebring Coupe"
+        ],
+        "Dodge": [
+            "Avenger",
+            "Caravan",
+            "Dakota",
+            "Durango",
+            "Neon",
+            "Ram Pickup",
+            "Ram Van",
+            "Ram Wagon",
+            "Stratus"
+        ],
+        "Ford": [
+            "Contour",
+            "Crown Victoria",
+            "Escort",
+            "Expedition",
+            "Explorer",
+            "F-Series",
+            "Focus",
+            "Mustang",
+            "Ranger",
+            "Taurus",
+            "Windstar"
+        ],
+        "Honda": [
+            "Accord",
+            "CR-V",
+            "Civic",
+            "Odyssey",
+            "Passport"
+        ],
+        "Hyundai": [
+            "Accent",
+            "Elantra",
+            "Sonata"
+        ],
+        "Infiniti": [
+            "I30"
+        ],
+        "Jaguar": [
+            "S-Type"
+        ],
+        "Jeep": [
+            "Cherokee",
+            "Grand Cherokee",
+            "Wrangler"
+        ],
+        "Lexus": [
+            "ES300",
+            "GS300",
+            "GS400",
+            "LS400",
+            "LX470",
+            "RX300"
+        ],
+        "Lincoln": [
+            "Continental",
+            "Navigator",
+            "Town car"
+        ],
+        "Mercedes-B": [
+            "C-Class",
+            "CL500",
+            "CLK Coupe",
+            "E-Class",
+            "M-Class",
+            "S-Class",
+            "SL-Class",
+            "SLK",
+            "SLK230"
+        ],
+        "Mercury": [
+            "Cougar",
+            "Grand Marquis",
+            "Mountaineer",
+            "Mystique",
+            "Sable",
+            "Villager"
+        ],
+        "Mitsubishi": [
+            "3000GT",
+            "Diamante",
+            "Eclipse",
+            "Galant",
+            "Mirage",
+            "Montero",
+            "Montero Sport"
+        ],
+        "Nissan": [
+            "Altima",
+            "Frontier",
+            "Maxima",
+            "Pathfinder",
+            "Quest",
+            "Sentra",
+            "Xterra"
+        ],
+        "Oldsmobile": [
+            "Alero",
+            "Aurora",
+            "Bravada",
+            "Cutlass",
+            "Silhouette"
+        ],
+        "Plymouth": [
+            "Breeze",
+            "Neon",
+            "Prowler",
+            "Voyager"
+        ],
+        "Pontiac": [
+            "Bonneville",
+            "Firebird",
+            "Grand Am",
+            "Grand Prix",
+            "Montana",
+            "Sunfire"
+        ],
+        "Porsche": [
+            "Boxter",
+            "Carrera Cabrio",
+            "Carrera Coupe"
+        ],
+        "Saab": [
+            "3-Sep",
+            "5-Sep"
+        ],
+        "Saturn": [
+            "LS",
+            "LW",
+            "SC",
+            "SL",
+            "SW"
+        ],
+        "Subaru": [
+            "Forester",
+            "Outback"
+        ],
+        "Toyota": [
+            "4Runner",
+            "Avalon",
+            "Camry",
+            "Celica",
+            "Corolla",
+            "Land Cruiser",
+            "RAV4",
+            "Sienna",
+            "Tacoma"
+        ],
+        "Volkswagen": [
+            "Beetle",
+            "Cabrio",
+            "GTI",
+            "Golf",
+            "Jetta",
+            "Passat"
+        ],
+        "Volvo": [
+            "C70",
+            "S40",
+            "S70",
+            "S80",
+            "V40",
+            "V70"
+        ]
+    },
+    "year_min": 2008,
+    "year_max": 2012,
+    "mileage_max": 450.0
+}
