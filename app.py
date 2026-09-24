@@ -1,3 +1,4 @@
+import datetime
 import json
 import joblib
 import numpy as np
@@ -22,6 +23,9 @@ def load_artifacts():
     return pipeline, meta
 
 pipeline, meta = load_artifacts()
+
+# Current Calendar Year for Real-Time Age Computation
+CURRENT_YEAR = datetime.date.today().year
 
 # Model & Brand-Specific High-Resolution Image Mapping
 MODEL_PHOTOS = {
@@ -171,6 +175,18 @@ st.markdown(f"""
         display: inline-block;
         margin-top: 8px;
     }}
+    .age-pill {{
+        background-color: rgba(245, 158, 11, 0.15);
+        color: #d97706;
+        border: 1.5px solid #f59e0b;
+        padding: 6px 14px;
+        border-radius: 14px;
+        font-size: 13px;
+        font-weight: 700;
+        display: inline-block;
+        margin-top: 8px;
+        margin-left: 6px;
+    }}
     .stat-tile {{
         background: {card_bg};
         border: 1.5px solid {card_border};
@@ -224,11 +240,12 @@ with left_col:
     with c2:
         registration = st.selectbox("Registration Status", meta["registrations"], index=0)
         year = st.number_input(
-            "Manufacturing Year",
+            "Manufacturing Year (Model Year)",
             min_value=meta["year_min"],
             max_value=meta["year_max"],
             value=2012,
-            step=1
+            step=1,
+            help="Year the vehicle was produced. Influences model longevity and depreciation index."
         )
         available_models = meta["brand_models"].get(brand, ["Standard"])
         model_name = st.selectbox("Vehicle Model Variant", available_models)
@@ -270,6 +287,10 @@ with right_col:
     months = loan_tenure_years * 12
     monthly_emi = int((principal * monthly_r * ((1 + monthly_r) ** months)) / (((1 + monthly_r) ** months) - 1))
 
+    # Dynamic Vehicle Age Calculation
+    vehicle_age = max(0, CURRENT_YEAR - int(year))
+    age_label = f"⏳ Vehicle Age: {vehicle_age} Years" if vehicle_age > 1 else (f"⏳ Vehicle Age: {vehicle_age} Year" if vehicle_age == 1 else "⏳ Brand New Vehicle")
+
     # Metric Display Box
     st.markdown(f"""
     <div class="valuation-card">
@@ -286,6 +307,9 @@ with right_col:
         <div class="spec-pill">
             🏷️ {brand} {model_name} &bull; {body.title()} &bull; {year} &bull; {engine_type}
         </div>
+        <div class="age-pill">
+            {age_label}
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -294,6 +318,7 @@ with right_col:
         "Manufacturer": brand,
         "Model": model_name,
         "Year": year,
+        "Vehicle_Age_Years": vehicle_age,
         "Estimated_Value_INR": predicted_val,
         "Tolerance_Min_INR": range_lower,
         "Tolerance_Max_INR": range_upper,
