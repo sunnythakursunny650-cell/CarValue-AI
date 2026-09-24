@@ -76,7 +76,7 @@ with st.sidebar:
     theme_choice = st.radio("Display Mode", ["Dark Mode 🌙", "Light Mode ☀️"], index=0)
     
     st.markdown("---")
-    st.markdown("### 👨‍💻 Engineering & Contact")
+    st.markdown("### 👨‍💻 Engineering & Profile")
     
     if theme_choice == "Dark Mode 🌙":
         dev_bg = "rgba(99, 102, 241, 0.12)"
@@ -96,18 +96,19 @@ with st.sidebar:
         <div style="font-weight: 800; font-size: 17px; color: {name_color}; margin-bottom: 4px;">Sunny Thakur</div>
         <div style="font-weight: 700; font-size: 13px; color: {role_color}; margin-bottom: 8px;">Machine Learning Engineer & Educator</div>
         <div style="font-weight: 600; font-size: 13px; line-height: 1.5; color: {desc_color};">
-            Engineered complete end-to-end ML pipeline, Random Forest optimization & production Streamlit architecture.
+            End-to-end ML pipeline architecture, Random Forest optimization & production deployment.
         </div>
     </div>
     """, unsafe_allow_html=True)
     
-    whatsapp_direct_url = "https://wa.me/919999999999?text=Hi%20Sunny,%20I%20reviewed%20your%20CarValue-AI%20project!"
-    linkedin_url = "https://www.linkedin.com"
+    # Professional Direct Contact Links
+    email_url = "mailto:sunnythakursunny650@gmail.com?subject=Regarding%20CarValue-AI%20Project"
+    linkedin_url = "https://www.linkedin.com/in/sunny-thakur-4a56103b9/"
     github_url = "https://github.com/sunnythakursunny650-cell/CarValue-AI"
 
     col_btn1, col_btn2 = st.columns(2)
     with col_btn1:
-        st.markdown(f'<a href="{whatsapp_direct_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:9px; border-radius:8px; border:none; background:#22c55e; color:white; font-weight:700; font-size:12px; cursor:pointer;">💬 WhatsApp</button></a>', unsafe_allow_html=True)
+        st.markdown(f'<a href="{email_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:9px; border-radius:8px; border:none; background:#ea4335; color:white; font-weight:700; font-size:12px; cursor:pointer;">📧 Email</button></a>', unsafe_allow_html=True)
     with col_btn2:
         st.markdown(f'<a href="{linkedin_url}" target="_blank" style="text-decoration:none;"><button style="width:100%; padding:9px; border-radius:8px; border:none; background:#0284c7; color:white; font-weight:700; font-size:12px; cursor:pointer;">💼 LinkedIn</button></a>', unsafe_allow_html=True)
     
