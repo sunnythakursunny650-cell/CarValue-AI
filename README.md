@@ -76,33 +76,48 @@ CarValue-AI/
 ├── requirements.txt               # Application dependencies
 └── README.md                      # Project documentation
 
+---
 
-🚀 Installation & Local Deployment
-1. Clone the Repository
+## 🚀 Installation & Local Deployment
+
+### 1. Clone the Repository
+```bash
 git clone [https://github.com/sunnythakursunny650-cell/CarValue-AI.git](https://github.com/sunnythakursunny650-cell/CarValue-AI.git)
 cd CarValue-AI
+```
 
-2. Set Up Virtual Environment
+### 2. Set Up Virtual Environment
+```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
+```
 
-3. Install Dependencies
+### 3. Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
-4. Execute Pipeline Training
+### 4. Execute Pipeline Training
+```bash
 python train_model.py
+```
 
-5. Launch Dashboard
+### 5. Launch Dashboard
+```bash
 streamlit run app.py
+```
 
-👨‍💻 Author
-Sunny Thakur
+---
 
-Role: Machine Learning Engineer & Educator
+## 👨‍💻 Author
 
-GitHub: @sunnythakursunny650-cell
+**Sunny Thakur**  
+- **Role:** Machine Learning Engineer & Educator  
+- **GitHub:** [@sunnythakursunny650-cell](https://github.com/sunnythakursunny650-cell)  
+- **LinkedIn:** [Sunny Thakur](https://www.linkedin.com/in/sunny-thakur-4a56103b9/)
 
-LinkedIn: Sunny Thakur
+---
 
-📄 License
-This project is open-source and licensed under the MIT License.
+## 📄 License
+
+This project is open-source and licensed under the [MIT License](LICENSE).
