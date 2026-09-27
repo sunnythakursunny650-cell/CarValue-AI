@@ -5,11 +5,13 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-v1.3%2B-orange?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Live%20App-FF4B4B?logo=streamlit&logoColor=white)](https://carvalue-ai-rbhwm7wktdng3mw9syxuxf.streamlit.app/)
 [![Plotly](https://img.shields.io/badge/Plotly-Interactive-brightgreen?logo=plotly&logoColor=white)](https://plotly.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An end-to-end Machine Learning web platform designed to forecast secondary automobile market prices with high precision, featuring dynamic multi-variable inference and real-time interactive depreciation curves.
+
+[**🌐 Live Demo**](https://carvalue-ai-rbhwm7wktdng3mw9syxuxf.streamlit.app/) • [**📂 GitHub Repository**](https://github.com/sunnythakursunny650-cell/CarValue-AI)
 
 </div>
 
@@ -19,7 +21,7 @@ An end-to-end Machine Learning web platform designed to forecast secondary autom
 
 Predicting used car values presents non-linear challenges due to brand positioning, localized market demand, vehicle aging, and performance specs. Traditional linear estimators often fail to capture complex categorical interactions (e.g., brand-tier premiums combined with high odometer readings).
 
-**CarValue-AI** solves this by implementing an ensemble-based **Random Forest Regressor** encased within an automated, leakage-free Scikit-Learn data transformation pipeline, backed by dynamic category filtering and an intuitive glassmorphic dashboard.
+**CarValue-AI** solves this by implementing an ensemble-based **Random Forest Regressor** encased within an automated, leakage-free Scikit-Learn data transformation pipeline, backed by dynamic category filtering, fintech tools, and an intuitive dashboard.
 
 ---
 
@@ -29,7 +31,18 @@ Predicting used car values presents non-linear challenges due to brand positioni
 - **Dynamic Dependent Dropdowns:** Resolves brand-model mismatch bugs by maintaining a metadata index (`artifacts/car_meta.json`) to dynamically populate legitimate models matching the selected manufacturer.
 - **Log-Target Regularization:** Mitigates target right-skewness using a logarithmic transformation ($\log(1 + y)$), ensuring stable variance and superior loss convergence during training.
 - **Explainable Depreciation Forecasting:** Employs dynamic Plotly visualization to plot depreciation velocity curves across vehicle age horizons for instantaneous decision support.
-- **Modular Directory Organization:** Decoupled training workflows, exploratory analytics, and serialized runtime artifacts following enterprise ML design patterns.
+- **Fintech & Certificate Generation:** Features a dynamic Loan & EMI Customizer with adjustable interest/down payment and a 1-click downloadable Valuation Certificate (CSV).
+- **In-App Technical Specifications:** Expandable architectural panel detailing pipeline parameters, real-time inference latency, and feature attributions.
+
+---
+
+## ℹ️ Model Specifications & Performance Summary
+
+- **Core Model:** Random Forest Regressor Pipeline (Scikit-Learn)
+- **Target Scale:** Log-transformed (`np.log1p` / `np.expm1`) to mitigate price skewness
+- **Validation Score ($R^2$):** **0.7513** (Cross-validated test set)
+- **Serving Latency:** **< 14 ms** real-time single-row inference runtime
+- **Feature Attribution:** Weighted by Engine Displacement, Model Longevity decay (~6.2% annual), and Brand Equity Multipliers
 
 ---
 
@@ -63,6 +76,7 @@ CarValue-AI/
 ├── requirements.txt               # Application dependencies
 └── README.md                      # Project documentation
 
+
 🚀 Installation & Local Deployment
 1. Clone the Repository
 git clone [https://github.com/sunnythakursunny650-cell/CarValue-AI.git](https://github.com/sunnythakursunny650-cell/CarValue-AI.git)
@@ -84,9 +98,11 @@ streamlit run app.py
 👨‍💻 Author
 Sunny Thakur
 
-Role: Machine Learning Engineer / Educator
+Role: Machine Learning Engineer & Educator
 
 GitHub: @sunnythakursunny650-cell
+
+LinkedIn: Sunny Thakur
 
 📄 License
 This project is open-source and licensed under the MIT License.
